@@ -4,7 +4,7 @@ const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 var engine, world;
 var box1, pig1, bg;
-var platform, log6;
+var platform;
 
 function preload(){
     bg = loadImage("sprites/bg.png");
@@ -34,10 +34,10 @@ function setup(){
     box5 = new Box(810,160,70,70);
     log4 = new Log(760,120,150, PI/7);
     log5 = new Log(870,120,150, -PI/7);
-    log6 = new Log(200, 150, 100, PI/2);
+    
 
     bird = new Bird(100,100);
-    james = new slingshot(bird.body,log6.body)
+    james = new slingshot(bird.body,{x:250,y:165})
 
 }
 
@@ -61,10 +61,17 @@ function draw(){
     box5.display();
     log4.display();
     log5.display();
-    log6.display();
+    
     platform.display();
     bird.display();
     james.display();
-
     
+}
+
+function mouseDragged() {
+    Matter.Body.setPosition(bird.body,{x:mouseX,y:mouseY});
+}
+
+function mouseReleased() {
+    james.fly();
 }
